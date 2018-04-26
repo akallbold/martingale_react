@@ -2,7 +2,7 @@ import React from "react"
 import Chart from "chart.js"
 
 class Graphics extends React.Component {
-debugger
+// debugger
   // ctx = document.getElementById('myChart')
   // .getElementById('myChart').getContext('2d');
   // chart = new Chart(this.ctx, {
@@ -30,7 +30,7 @@ debugger
         <img alt="spinning roulette wheel" src="wheel.gif" />
         {/* <canvas id="myChart"></canvas>
           {/* ctx = document.getElementById('myChart').getContext('2d'); */}
-        {this.chart} */}
+        {/* {this.chart} */} */}
       </div>
     )
   }
