@@ -4,8 +4,6 @@ import React from "react"
 class Graphics extends React.Component {
 
   render(){
-    console.log("document", document)
-    console.log("document.getElementByIdmyChart", document.getElementById('myChart').getContext('2d'))
     return (
       <div className="left">
         <p>Graph and stats and shit</p>
