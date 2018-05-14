@@ -1,6 +1,7 @@
 import React from "react"
 import Inputs from "./Inputs"
 import Graphics from "./Graphics"
+import Chart from "./Chart"
 
 class MainContainer extends React.Component {
 
@@ -27,7 +28,6 @@ class MainContainer extends React.Component {
 
   //this isn't working...run this when inputs changed instead of when start button pressed
   determineProb = () => {
-    let prob = 0
     let spinExponent = Math.ceil(((Math.log(this.state.maxInvestment/this.state.bet))/(Math.log(2))))
     // you lose your money if you are 1 loss more than what you can afford
     let lossNumber = spinExponent + 1
@@ -52,7 +52,7 @@ class MainContainer extends React.Component {
     let currentGameSpins = [];
     let colorOfSpin = null;
     let spinWin = null;
-    this.resetGame()
+    // this.resetGame()
 
     while ((currentBet <= this.state.maxInvestment) && (this.state.goal > pocket)) {
       currentSpin = this.spin();
@@ -79,14 +79,13 @@ class MainContainer extends React.Component {
         currentBet *= 2
       }
     }
-    let gameResults = this.gameOver(currentBet, pocket, spins)
+    let gameResults = this.gameOver(currentBet, pocket, spins, currentGameSpins)
     if(gameResults){
-      let updatedStats = [...this.state.gameStats, ...gameResults]
-      this.setState({gameStats:updatedStats, gameWin:gameResults.gameWin})
+      this.setState({gameStats:[...this.state.gameStats, gameResults], gameWin:gameResults.gameWin})
     }
   }
 
-  gameOver = (currentBet, pocket, spins) => {
+  gameOver = (currentBet, pocket, spins, currentGameSpins) => {
     if (currentBet >= this.state.maxInvestment){
       return
                           ({ gameWin: false,
@@ -97,7 +96,8 @@ class MainContainer extends React.Component {
                             colorChoice: this.state.colorChoice,
                             lastBet: currentBet,
                             pocket: pocket,
-                            probOfWin: this.probOfWin})
+                            probOfWin: this.probOfWin,
+                            currentGameSpins: currentGameSpins})
     } else if ((this.state.goal <= pocket)){
       return              ({ gameWin: true,
                             numOfSpins: spins,
@@ -107,18 +107,12 @@ class MainContainer extends React.Component {
                             colorChoice: this.state.colorChoice,
                             lastBet: currentBet,
                             pocket: pocket,
-                            probOfWinning: this.probOfWinning})
+                            probOfWin: this.probOfWin,
+                            currentGameSpins: currentGameSpins})
     } else {
       console.log("game on")
       return false
     }
-  }
-
-  resetGame = () => {
-    this.spins = 0
-    this.pocket = 0
-    this.currentSpin = 0
-    this.currentBet = this.state.bet
   }
 
   spin = () => {
@@ -152,20 +146,26 @@ class MainContainer extends React.Component {
   render(){
     return (
       <div className= "container">
-        <Inputs goal={this.state.goal}
-                maxInvestment={this.state.maxInvestment}
-                bet={this.state.bet}
-                winBig={this.state.winBig}
-                colorChoice={this.state.colorChoice}
-                handleRed={this.handleRed}
-                handleBlack={this.handleBlack}
-                handleGoal={this.handleGoal}
-                handleMaxInvestment={this.handleMaxInvestment}
-                handleBet={this.handleBet}
-                startGame={this.startGame}
-                probOfWin={this.probOfWin}
-        />
-        <Graphics/>
+        <div className= "row">
+          <Inputs className = "col s6"
+                  goal={this.state.goal}
+                  maxInvestment={this.state.maxInvestment}
+                  bet={this.state.bet}
+                  winBig={this.state.winBig}
+                  colorChoice={this.state.colorChoice}
+                  gameStats = {this.state.gameStats}
+                  handleRed={this.handleRed}
+                  handleBlack={this.handleBlack}
+                  handleGoal={this.handleGoal}
+                  handleMaxInvestment={this.handleMaxInvestment}
+                  handleBet={this.handleBet}
+                  startGame={this.startGame}
+                  probOfWin={this.probOfWin}
+          />
+          <Chart  className = "col s6"
+                  gameStats = {this.state.gameStats}/>
+          <Graphics/>
+        </div>
       </div>
     )
   }
