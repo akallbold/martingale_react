@@ -25,7 +25,7 @@ class MainContainer extends React.Component {
   handleMaxInvestment = (event) => {this.setState({maxInvestment: event.target.value})}
   handleBet = (event) => {this.setState({bet: event.target.value})}
 
-  //this isn't working
+  //this isn't working...run this when inputs changed instead of when start button pressed
   determineProb = () => {
     let prob = 0
     let spinExponent = Math.ceil(((Math.log(this.state.maxInvestment/this.state.bet))/(Math.log(2))))
@@ -146,12 +146,6 @@ class MainContainer extends React.Component {
 
 ////////////////////////////////////////////////////////////////////////////////////////////
 
-
-
-
-
-
-
   render(){
     return (
       <div className= "container">
@@ -170,7 +164,6 @@ class MainContainer extends React.Component {
         />
         <Graphics/>
       </div>
-
     )
   }
 }
