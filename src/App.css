@@ -27,6 +27,16 @@
   to { transform: rotate(360deg); }
 }
 
+.blackfont{
+  color: black;
+}
+.greenfont{
+  color: green;
+}
+.redfont{
+  color: red;
+}
+
 /* .button{
   color: white;
   margin: 5px;

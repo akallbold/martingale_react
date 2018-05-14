@@ -22,11 +22,14 @@ class Inputs extends React.Component {
         <label> Bet
           <input onChange={this.props.handleBet} value= {this.props.bet} placeholder="BET"></input>
         </label>
-        <button className = "btn" onClick={this.props.startGame}>Run!</button>
-        <h6>Total Number of Spins: {this.props.gameStats.length > 0 ? this.props.gameStats[this.props.gameStats.length-1].numOfSpins : 0}</h6>
+        <button className = "btn" onClick={this.props.startGame}>Run</button>
+        <h6 className= "left">{this.props.gameStats.length > 0 ? this.props.gameStats[this.props.gameStats.length-1].gameWin ? "You Won!" : "Yikes! You Lost :(" : "Press Run Button to Start"}</h6>
+        <br></br>
+        <h6 className= "left">Total Number of Spins: {this.props.gameStats.length > 0 ? this.props.gameStats[this.props.gameStats.length-1].numOfSpins : 0}</h6>
         {/* <h3>Winnings: {this.props.winBig ? "$" + this.props.pocket : "$0"}</h3> */}
         {/* <h3>Losses: {!this.props.winBig ? "$" + this.props.maxInvestment : "$0" }</h3> */}
-        <h6>Probability of Winning: {this.props.probOfWin}</h6>
+        <br></br>
+        <h6 className= "left">Probability of Winning: {this.props.probOfWin}</h6>
       </div>
     )
   }

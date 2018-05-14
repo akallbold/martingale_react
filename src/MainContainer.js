@@ -1,7 +1,7 @@
 import React from "react"
 import Inputs from "./Inputs"
-import Graphics from "./Graphics"
-import Chart from "./Chart"
+import ChartComponent from "./Chart"
+import Table from "./Table"
 
 class MainContainer extends React.Component {
 
@@ -162,9 +162,10 @@ class MainContainer extends React.Component {
                   startGame={this.startGame}
                   probOfWin={this.probOfWin}
           />
-          <Chart  className = "col s6"
+          <ChartComponent className = "col s6"/>
+          <Table  className = "col s12"
                   gameStats = {this.state.gameStats}/>
-          <Graphics/>
+
         </div>
       </div>
     )
