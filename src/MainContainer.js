@@ -59,7 +59,6 @@ class MainContainer extends React.Component {
       colorOfSpin = this.colorOfSpin(currentSpin)
       spins++;
       if (this.win(colorOfSpin)) {
-        console.log("win")
         spinWin = true
         pocket += this.state.bet
         currentGameSpins.push([{ spin:spins,
@@ -70,7 +69,6 @@ class MainContainer extends React.Component {
                                  pocket: pocket}])
         currentBet = this.state.bet
       } else {
-        console.log("loss")
         spinWin = false
         currentGameSpins.push([{ spin:spins,
                                  resultNum: currentSpin,
@@ -81,33 +79,38 @@ class MainContainer extends React.Component {
         currentBet *= 2
       }
     }
-    //decides if a game is complete...break into helper function?
+    let gameResults = this.gameOver(currentBet, pocket, spins)
+    if(gameResults){
+      let updatedStats = [...this.state.gameStats, ...gameResults]
+      this.setState({gameStats:updatedStats, gameWin:gameResults.gameWin})
+    }
+  }
+
+  gameOver = (currentBet, pocket, spins) => {
     if (currentBet >= this.state.maxInvestment){
-      debugger
-      this.gameStats.push({ gameWin:false,
-                            numOfSpins: this.spins,
-                            bet:this.state.bet,
-                            goal:this.state.goal,
-                            maxInvestment:this.state.maxInvestment,
+      return
+                          ({ gameWin: false,
+                            numOfSpins: spins,
+                            bet: this.state.bet,
+                            goal: this.state.goal,
+                            maxInvestment: this.state.maxInvestment,
                             colorChoice: this.state.colorChoice,
-                            lastBet:this.currentBet,
-                            pocket:this.pocket,
-                            probOfWinning:this.probOfWinning})
-      this.setState({gameWin:false})
+                            lastBet: currentBet,
+                            pocket: pocket,
+                            probOfWin: this.probOfWin})
     } else if ((this.state.goal <= pocket)){
-      debugger
-      this.gameStats.push({ gameWin:true,
-                            numOfSpins: this.spins,
-                            bet:this.state.bet,
-                            goal:this.state.goal,
-                            maxInvestment:this.state.maxInvestment,
+      return              ({ gameWin: true,
+                            numOfSpins: spins,
+                            bet: this.state.bet,
+                            goal: this.state.goal,
+                            maxInvestment: this.state.maxInvestment,
                             colorChoice: this.state.colorChoice,
-                            lastBet:this.currentBet,
-                            pocket:this.pocket,
-                            probOfWinning:this.probOfWinning})
-      this.setState({gameWin:true})
+                            lastBet: currentBet,
+                            pocket: pocket,
+                            probOfWinning: this.probOfWinning})
     } else {
       console.log("game on")
+      return false
     }
   }
 
