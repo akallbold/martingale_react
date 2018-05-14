@@ -9,10 +9,11 @@ class MainContainer extends React.Component {
   pocket = 0;
   currentSpin = 0;
   currentBet = 10;
-  redNums = [1,3,5,7,9,12,14,16,18,19,21,23,25,27,30,32,34,36]
-  blackNums = [2,4,6,8,10,11,13,15,17,20,22,24,26,28,29,31,33,35]
-  greenNums = [0,37]
-  probOfWin=0
+  redNums = [1,3,5,7,9,12,14,16,18,19,21,23,25,27,30,32,34,36];
+  blackNums = [2,4,6,8,10,11,13,15,17,20,22,24,26,28,29,31,33,35];
+  greenNums = [0,37];
+  probOfWin=0;
+  gameStats = [];
 
   state = {
     colorChoice:"red",
@@ -28,6 +29,7 @@ class MainContainer extends React.Component {
   blackSpin = 0;
   redSpin = 0;
   greenSpin = 0;
+  previousSpin = null;
 
 
 colorOfSpin = () => {
@@ -37,7 +39,7 @@ colorOfSpin = () => {
   } else if (this.blackNums.includes(this.currentSpin)){
     this.setState({currentColor:"black"})
     this.blackSpin++
-  } else if (this.greenkNums.includes(this.currentSpin)){
+  } else if (this.greenNums.includes(this.currentSpin)){
     this.setState({currentColor:"green"})
     this.greenSpin++
   } else {
@@ -122,8 +124,7 @@ colorOfSpin = () => {
 
   render(){
     return (
-      <div>
-        <Graphics/>
+      <div class= "container">
         <Inputs goal={this.state.goal}
                 maxInvestment={this.state.maxInvestment}
                 bet={this.state.bet}
@@ -136,7 +137,10 @@ colorOfSpin = () => {
                 startGame={this.startGame}
                 spins= {this.spins}
                 pocket={this.pocket}
-                probOfWin={this.probOfWin}/>
+                probOfWin={this.probOfWin}
+                colorChoice={this.state.colorChoice}/>
+        <Graphics/>
+
       </div>
 
     )
