@@ -159,9 +159,9 @@ createChartData = () => {
   let chartData = {labels: ["RED", "BLACK", "GREEN"],
                    datasets: [
                      {
-                       label: "Count",
                        data: [rbg.red, rbg.black, rbg.green],
-                       backgroundColor: ["#E0080B", "#000000", "#016D29"],
+                       backgroundColor: ["#E0080B", "#000000", "#016D29"]
+
                      }
                    ]
                   }

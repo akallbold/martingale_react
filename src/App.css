@@ -37,6 +37,12 @@
   color: red;
 }
 
+.border{
+  border: black 3px solid;
+  margins: auto;
+  padding: 10px
+}
+
 /* .button{
   color: white;
   margin: 5px;

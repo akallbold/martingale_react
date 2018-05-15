@@ -10,6 +10,17 @@ class ChartComponent extends React.Component {
       <div className = "col s6">
         <Bar
           data={this.props.chartData()}
+          options= {{
+            title:{
+              display:true,
+              position: 'top',
+              text: "Spin-Color Distribution",
+              fontSize:25
+            },
+            legend:{
+              display:false
+            }
+          }}
         />
       </div>
     )
