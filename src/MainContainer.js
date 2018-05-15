@@ -142,7 +142,33 @@ class MainContainer extends React.Component {
   }
 
 ////////////////////////////////////////////////////////////////////////////////////////////
+lifetimeRBGStats = () => {
+  let output = {red: 0, black: 0, green: 0}
 
+  this.state.gameStats.forEach(game => {
+    game.currentGameSpins.forEach(spin => {
+      output[spin[0].resultCol]++
+    })
+  })
+  console.log(output)
+  return output
+}
+
+createChartData = () => {
+  let rbg = this.lifetimeRBGStats()
+  let chartData = {labels: ["RED", "BLACK", "GREEN"],
+                   datasets: [
+                     {
+                       label: "Count",
+                       data: [rbg.red, rbg.black, rbg.green],
+                       backgroundColor: ["#E0080B", "#000000", "#016D29"],
+                     }
+                   ]
+                  }
+  return chartData
+}
+
+////////////////////////////////////////////////////////////////////////////////////////////
   render(){
     return (
       <div className= "container">
@@ -162,7 +188,10 @@ class MainContainer extends React.Component {
                   startGame={this.startGame}
                   probOfWin={this.probOfWin}
           />
-          <ChartComponent className = "col s6"/>
+          <ChartComponent className = "col s6"
+                          gameStats = {this.state.gameStats}
+                          chartData = {this.createChartData}/>
+
           <Table  className = "col s12"
                   gameStats = {this.state.gameStats}/>
 
