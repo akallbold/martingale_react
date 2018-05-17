@@ -27,6 +27,7 @@ class MainContainer extends React.Component {
   handleBet = (event) => {this.setState({bet: event.target.value})}
 
   //this isn't working...run this when inputs changed instead of when start button pressed
+  //what is the probability that I win 10 times before I lose 6 times in a row
   determineProb = () => {
     let spinExponent = Math.ceil(((Math.log(this.state.maxInvestment/this.state.bet))/(Math.log(2))))
     // you lose your money if you are 1 loss more than what you can afford
